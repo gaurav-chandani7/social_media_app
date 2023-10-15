@@ -1,0 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
+import 'package:social_media_app/features/features.dart';
+
+GetIt sl = GetIt.instance;
+
+Future<void> serviceLocator() async {
+  sl.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
+  _dataSources();
+  _repositories();
+  _useCase();
+  _cubit();
+}
+
+void _dataSources() {
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(sl()));
+}
+
+void _repositories() {
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
+}
+
+void _useCase() {
+  sl.registerLazySingleton(() => LoginUseCase(sl()));
+  sl.registerLazySingleton(() => RegisterUseCase(sl()));
+  sl.registerLazySingleton(() => LogoutUseCase(sl()));
+}
+
+void _cubit() {
+  sl.registerFactory(() => AuthCubit(sl(), sl()));
+  sl.registerFactory(() => RegisterCubit(sl()));
+}
