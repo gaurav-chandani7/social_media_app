@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';
-import 'package:social_media_app/features/authentication/presentation/cubit/register/register_cubit.dart';
 import 'package:social_media_app/utils/utils.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -30,11 +29,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           listener: (context, state) {
             if (state is RegisterLoading) {
               context.showLoading();
-            }
-            if (state is RegisterSuccess) {
+            } else if (state is RegisterSuccess) {
+              //Redirect to Login page after succesful registeration
               context.dismiss();
-            }
-            if (state is RegisterFailure) {
+              context.pushReplacementNamed(Routes.login.name);
+            } else if (state is RegisterFailure) {
               context.dismiss();
               state.message.toToastError(context);
             }

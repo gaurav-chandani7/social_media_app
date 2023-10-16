@@ -19,18 +19,10 @@ extension ContextExtensions on BuildContext {
         builder: (c) {
           return WillPopScope(
             onWillPop: () async => false,
-            child: Material(
+            child: const Material(
               color: Colors.transparent,
               child: Center(
-                child: Container(
-                  // decoration: BoxDecoration(
-                  //   color: Theme.of(this).extension<LzyctColors>()!.background,
-                  //   borderRadius: BorderRadius.circular(Dimens.cornerRadius),
-                  // ),
-                  // margin: EdgeInsets.symmetric(horizontal: Dimens.space30),
-                  // padding: EdgeInsets.all(Dimens.space24),
-                  child: const CircularProgressIndicator.adaptive(),
-                ),
+                child: CircularProgressIndicator.adaptive(),
               ),
             ),
           );
@@ -39,7 +31,9 @@ extension ContextExtensions on BuildContext {
 
   void dismiss() {
     try {
-      Navigator.pop(this);
+      if (Navigator.canPop(this)) {
+        Navigator.pop(this);
+      }
     } catch (_) {
       log(_.toString());
     }

@@ -4,11 +4,11 @@ import 'package:social_media_app/core/usecase/usecase.dart';
 import 'package:social_media_app/features/authentication/domain/entities/entities.dart';
 import 'package:social_media_app/features/authentication/domain/repository/repository.dart';
 
-class RegisterUseCase implements UseCase<Login, RegisterParams> {
+class RegisterUseCase implements UseCase<UserLoginInfo, RegisterParams> {
   final AuthRepository _repo;
   RegisterUseCase(this._repo);
   @override
-  Future<Either<Failure, Login>> call(RegisterParams params) =>
+  Future<Either<Failure, UserLoginInfo>> call(RegisterParams params) =>
       _repo.register(params);
 }
 

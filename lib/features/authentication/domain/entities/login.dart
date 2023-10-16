@@ -1,6 +1,17 @@
-class Login {
+class UserLoginInfo {
   final String? token;
   final String name;
   final String email;
-  const Login({required this.name, required this.email, this.token});
+  final String userId;
+  const UserLoginInfo({
+    this.token,
+    required this.name,
+    required this.email,
+    required this.userId,
+  });
+
+  @override
+  String toString() {
+    return 'UserLoginInfo(token: $token, name: $name, email: $email, userId: $userId)';
+  }
 }

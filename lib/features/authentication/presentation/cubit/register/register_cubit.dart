@@ -16,8 +16,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     data.fold((l) {
       if (l is ServerFailure) {
         emit(RegisterFailure(l.message ?? ""));
+      } else if (l is OtherFailure) {
+        emit(RegisterFailure(l.message ?? ""));
+      } else {
+        emit(RegisterFailure("Something went wrong"));
       }
-      emit(RegisterFailure("Something went wrong"));
     }, (r) => emit(RegisterSuccess(r.token)));
   }
 }

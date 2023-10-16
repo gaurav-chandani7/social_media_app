@@ -5,13 +5,13 @@ import 'package:social_media_app/features/authentication/domain/repository/auth_
 
 import '../entities/entities.dart';
 
-class LoginUseCase implements UseCase<Login, LoginParams> {
+class LoginUseCase implements UseCase<UserLoginInfo, LoginParams> {
   final AuthRepository _repo;
 
   LoginUseCase(this._repo);
 
   @override
-  Future<Either<Failure, Login>> call(LoginParams params) =>
+  Future<Either<Failure, UserLoginInfo>> call(LoginParams params) =>
       _repo.login(params);
 }
 

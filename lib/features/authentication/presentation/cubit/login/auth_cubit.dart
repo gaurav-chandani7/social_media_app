@@ -3,15 +3,18 @@ import 'package:meta/meta.dart';
 import 'package:social_media_app/core/error/failure.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';
 
-
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._loginUseCase, this._logoutUseCase)
-      : super(Loading());
+  AuthCubit(this._loginUseCase, this._logoutUseCase,
+      this._checkLoggedInAndGetDetailsUseCase)
+      : super(AuthInitial()) {
+    checkLoggedInSession();
+  }
 
   final LoginUseCase _loginUseCase;
   final LogoutUseCase _logoutUseCase;
+  final CheckLoggedInAndGetDetailsUseCase _checkLoggedInAndGetDetailsUseCase;
 
   Future<void> login(LoginParams loginParams) async {
     emit(Loading());
@@ -21,7 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (l is ServerFailure) {
         emit(Failure(l.message ?? ""));
       }
-    }, (r) => emit(Success(r.token)));
+    }, (r) => emit(Success(data: r)));
   }
 
   Future<void> logout() async {
@@ -31,7 +34,13 @@ class AuthCubit extends Cubit<AuthState> {
       if (l is ServerFailure) {
         emit(Failure(l.message ?? ""));
       }
-      emit(Failure("Something went wrong."));
-    }, (r) => emit(Success(null)));
+      emit(const Failure("Something went wrong."));
+    }, (r) => emit(AuthInitial()));
+  }
+
+  Future checkLoggedInSession() async {
+    emit(FetchingSession());
+    final data = await _checkLoggedInAndGetDetailsUseCase(null);
+    data.fold((l) => emit(AuthInitial()), (r) => emit(Success(data: r)));
   }
 }

@@ -6,16 +6,20 @@ import 'package:social_media_app/features/authentication/domain/usecases/usecase
 abstract class AuthRemoteDataSource {
   Future<Either<Failure, UserCredential>> login(LoginParams loginParams);
 
-  Future<Either<Failure, UserCredential>> register(RegisterParams registerParams);
+  Future<Either<Failure, UserCredential>> register(
+      RegisterParams registerParams);
 
   Future<Either<Failure, void>> logout();
+
+  User? get loggedInUser;
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
   AuthRemoteDataSourceImpl(this._firebaseAuth);
 
-  static User? get loggedInUser => FirebaseAuth.instance.currentUser;
+  @override
+  User? get loggedInUser => FirebaseAuth.instance.currentUser;
 
   @override
   Future<Either<Failure, UserCredential>> login(LoginParams loginParams) async {
@@ -42,7 +46,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, UserCredential>> register(RegisterParams params) async {
+  Future<Either<Failure, UserCredential>> register(
+      RegisterParams params) async {
     try {
       final response = await _firebaseAuth.createUserWithEmailAndPassword(
           email: params.email, password: params.password);

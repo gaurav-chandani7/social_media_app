@@ -15,19 +15,23 @@ Future<void> serviceLocator() async {
 void _dataSources() {
   sl.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<GraphQLCreateUserDataSource>(
+      () => GraphQLCreateUserDataSourceImpl());
 }
 
 void _repositories() {
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(sl(), sl()));
 }
 
 void _useCase() {
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerLazySingleton(() => RegisterUseCase(sl()));
   sl.registerLazySingleton(() => LogoutUseCase(sl()));
+  sl.registerLazySingleton(() => CheckLoggedInAndGetDetailsUseCase(sl()));
 }
 
 void _cubit() {
-  sl.registerFactory(() => AuthCubit(sl(), sl()));
+  sl.registerLazySingleton(() => AuthCubit(sl(), sl(), sl()));
   sl.registerFactory(() => RegisterCubit(sl()));
 }

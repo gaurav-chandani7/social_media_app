@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
               context.showLoading();
             }
             if (state is Success) {
-              context.dismiss();
+              // context.dismiss();
             }
             if (state is Failure) {
               context.dismiss();
