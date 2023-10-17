@@ -9,3 +9,21 @@ class GetUserRList extends UserRecommendationEvent {
     required this.userId,
   });
 }
+
+class FollowTap extends UserRecommendationEvent {
+  final String selfId;
+  final String targetUserId;
+  FollowTap({
+    required this.selfId,
+    required this.targetUserId,
+  });
+}
+
+class UnfollowTap extends UserRecommendationEvent {
+  final String selfId;
+  final String targetUserId;
+  UnfollowTap({
+    required this.selfId,
+    required this.targetUserId,
+  });
+}

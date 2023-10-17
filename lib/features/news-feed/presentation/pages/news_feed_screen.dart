@@ -58,7 +58,7 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
             itemBuilder: (context, index) => index == 0
                 ? const UsersRecommendationWidget()
                 : NewsFeedItemWidget(
-                    newsFeedItemEntity: state.data![index + 1]),
+                    newsFeedItemEntity: state.data![index - 1]),
             separatorBuilder: (context, index) => const Divider(),
           );
         }

@@ -79,7 +79,7 @@ class _NewsFeedItemWidgetState extends State<NewsFeedItemWidget> {
                       valueListenable: pageValueNotifier,
                       builder: (context, pageValue, child) {
                         return Visibility(
-                          visible: pageValue != newsFeedItem.urls.length,
+                          visible: pageValue != newsFeedItem.urls.length - 1,
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: ElevatedButton(

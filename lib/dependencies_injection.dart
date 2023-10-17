@@ -51,6 +51,8 @@ void _useCase() {
   sl.registerLazySingleton(() => GetNewsFeedUseCase(sl()));
   sl.registerLazySingleton(() => CreatePostUseCase(sl()));
   sl.registerLazySingleton(() => GetUsersRecommendationUseCase(sl()));
+  sl.registerFactory(() => FollowUserUseCase(sl()));
+  sl.registerFactory(() => UnfollowUserUseCase(sl()));
 }
 
 void _cubit() {
@@ -59,5 +61,5 @@ void _cubit() {
 
   sl.registerFactory(() => NewsFeedBloc(sl()));
   sl.registerFactory(() => CreatePostBloc(sl()));
-  sl.registerFactory(() => UserRecommendationBloc(sl()));
+  sl.registerFactory(() => UserRecommendationBloc(sl(), sl(), sl()));
 }

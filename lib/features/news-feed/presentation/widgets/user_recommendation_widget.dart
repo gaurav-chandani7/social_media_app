@@ -12,7 +12,8 @@ class UsersRecommendationWidget extends StatefulWidget {
       _UsersRecommendationWidgetState();
 }
 
-class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget> {
+class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget>
+    with AutomaticKeepAliveClientMixin {
   var bloc = sl<UserRecommendationBloc>();
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => bloc,
       child: BlocBuilder(
@@ -82,13 +84,71 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget> {
                                         ),
                                         Text(
                                             "${data[index].firstName} ${data[index].lastName}"),
-                                        ElevatedButton(
-                                            onPressed: () {},
-                                            style: ElevatedButton.styleFrom(
-                                                padding: EdgeInsets.zero,
-                                                visualDensity:
-                                                    VisualDensity.comfortable),
-                                            child: const Text("Follow"))
+                                        BlocBuilder(
+                                          bloc: bloc,
+                                          builder: (context,
+                                              UserRecommendationState state) {
+                                            if (state
+                                                is UserRecommendationFollowButtonLoading) {
+                                              if (state.targetUserId ==
+                                                  data[index].id) {
+                                                return Container(
+                                                    width: 50,
+                                                    height: 40,
+                                                    padding: const EdgeInsets
+                                                        .symmetric(vertical: 8),
+                                                    alignment: Alignment.center,
+                                                    child:
+                                                        const LinearProgressIndicator());
+                                              }
+                                            }
+                                            return AbsorbPointer(
+                                              absorbing: state
+                                                  is UserRecommendationFollowButtonLoading,
+                                              child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .comfortable),
+                                                  onPressed: () {
+                                                    String selfId = context
+                                                        .read<AuthCubit>()
+                                                        .state
+                                                        .data!
+                                                        .userId;
+                                                    if (state.followedUsers
+                                                            ?.contains(
+                                                                data[index]
+                                                                    .id) ??
+                                                        false) {
+                                                      bloc.add(UnfollowTap(
+                                                          selfId: selfId,
+                                                          targetUserId:
+                                                              data[index].id));
+                                                    } else {
+                                                      bloc.add(FollowTap(
+                                                          selfId: selfId,
+                                                          targetUserId:
+                                                              data[index].id));
+                                                    }
+                                                  },
+                                                  child: Builder(
+                                                      builder: (context) {
+                                                    if (state.followedUsers
+                                                            ?.contains(
+                                                                data[index]
+                                                                    .id) ??
+                                                        false) {
+                                                      return Text("Unfollow");
+                                                    }
+                                                    return Text("Follow");
+                                                  })),
+                                            );
+                                          },
+                                        )
                                       ],
                                     ),
                                   )
@@ -105,4 +165,8 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

@@ -7,8 +7,10 @@ import 'package:social_media_app/features/news-feed/data/data_sources/data_sourc
 import 'package:social_media_app/features/news-feed/data/data_sources/firebase_storage_data_source.dart';
 import 'package:social_media_app/features/news-feed/data/models/create_post.dart';
 import 'package:social_media_app/features/news-feed/data/models/models.dart';
+import 'package:social_media_app/features/news-feed/data/models/user_action_model.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/create_post/create_post_item.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/news_feed_item.dart';
+import 'package:social_media_app/features/news-feed/domain/entities/user_action/user_action_params.dart';
 import 'package:social_media_app/features/news-feed/domain/repository/repository.dart';
 
 class PostRepositoryImpl implements PostRepository {
@@ -48,5 +50,23 @@ class PostRepositoryImpl implements PostRepository {
     } catch (e) {
       return Left(OtherFailure(message: e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, bool>> followUser(
+      UserActionParams userActionParams) async {
+    return _graphQLDataSource.followUser(
+        userActionModel: UserActionModel(
+            selfId: userActionParams.selfId,
+            targetUserId: userActionParams.targetUserId));
+  }
+
+  @override
+  Future<Either<Failure, bool>> unfollowUser(
+      UserActionParams userActionParams) async {
+    return _graphQLDataSource.unfollowUser(
+        userActionModel: UserActionModel(
+            selfId: userActionParams.selfId,
+            targetUserId: userActionParams.targetUserId));
   }
 }

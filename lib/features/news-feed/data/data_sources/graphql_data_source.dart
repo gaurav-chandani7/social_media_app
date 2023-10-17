@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:social_media_app/core/error/failure.dart';
 import 'package:social_media_app/features/news-feed/data/models/create_post.dart';
 import 'package:social_media_app/features/news-feed/data/models/models.dart';
+import 'package:social_media_app/features/news-feed/data/models/user_action_model.dart';
 
 abstract class GraphQLDataSource {
   Future<Either<Failure, List<NewsFeedItemModel>>> getNewsFeed(String userId);
@@ -12,6 +13,10 @@ abstract class GraphQLDataSource {
       String userId);
   Future<Either<Failure, NewsFeedItemModel>> createPost(
       {required CreatePostModel createPostModel});
+  Future<Either<Failure, bool>> followUser(
+      {required UserActionModel userActionModel});
+  Future<Either<Failure, bool>> unfollowUser(
+      {required UserActionModel userActionModel});
 }
 
 class GraphQLDataSourceImpl implements GraphQLDataSource {
@@ -122,6 +127,42 @@ class GraphQLDataSourceImpl implements GraphQLDataSource {
         }
       }));
       return Right(NewsFeedItemModel.fromJson(queryResult.data?['createPost']));
+    } catch (e) {
+      log(e.toString());
+      return const Left(OtherFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> followUser(
+      {required UserActionModel userActionModel}) async {
+    String query = """
+    mutation FollowUser(\$selfId: ID!, \$targetUserId: ID!) {
+      followUser(selfId: \$selfId, targetUserId: \$targetUserId)
+    }
+    """;
+    try {
+      QueryResult queryResult = await _graphQLClient.mutate(MutationOptions(
+          document: gql(query), variables: userActionModel.toMap()));
+      return Right(queryResult.data?['followUser']);
+    } catch (e) {
+      log(e.toString());
+      return const Left(OtherFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> unfollowUser(
+      {required UserActionModel userActionModel}) async {
+    String query = """
+    mutation UnfollowUser(\$selfId: ID!, \$targetUserId: ID!) {
+      unfollowUser(selfId: \$selfId, targetUserId: \$targetUserId)
+    }
+    """;
+    try {
+      QueryResult queryResult = await _graphQLClient.mutate(MutationOptions(
+          document: gql(query), variables: userActionModel.toMap()));
+      return Right(queryResult.data?['unfollowUser']);
     } catch (e) {
       log(e.toString());
       return const Left(OtherFailure());
