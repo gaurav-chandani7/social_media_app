@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/dependencies_injection.dart';
 import 'package:social_media_app/features/features.dart';
+import 'package:social_media_app/features/news-feed/presentation/pages/create_post_screen.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/news_feed_screen.dart';
 import 'package:social_media_app/utils/utils.dart';
 
@@ -17,6 +18,7 @@ enum Routes {
 
   newsFeed("/newsFeed"),
   myProfile("/newsFeed/myProfile"),
+  createPost("/newsFeed/createPost"),
 
   login("/auth/login"),
   register("/auth/register");
@@ -66,6 +68,11 @@ class AppRoute {
             ),
           );
         }),
+      ),
+      GoRoute(
+        path: Routes.createPost.path,
+        name: Routes.createPost.name,
+        builder: (context, state) => const CreatePostScreen(),
       ),
       GoRoute(
         path: Routes.login.path,

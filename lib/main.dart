@@ -4,10 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/dependencies_injection.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';
+import 'package:social_media_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await serviceLocator();
   runApp(const SocialMediaApp());
 }
@@ -22,6 +23,7 @@ class SocialMediaApp extends StatelessWidget {
       child: Builder(builder: (context) {
         AppRoute.setStream(context);
         return MaterialApp.router(
+          theme: ThemeData(primarySwatch: Colors.brown),
           routerConfig: AppRoute.router,
         );
       }),

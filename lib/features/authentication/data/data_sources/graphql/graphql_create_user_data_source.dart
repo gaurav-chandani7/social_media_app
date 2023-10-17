@@ -14,17 +14,10 @@ abstract class GraphQLCreateUserDataSource {
 }
 
 class GraphQLCreateUserDataSourceImpl implements GraphQLCreateUserDataSource {
-  static final HttpLink httpLink = HttpLink(
-    'https://social-media-production-10b5.up.railway.app/',
-  );
+  final GraphQLClient _graphQLClient;
 
-  final client = GraphQLClient(
-      link: httpLink,
-      cache: GraphQLCache(),
-      defaultPolicies: DefaultPolicies(
-          query: Policies(
-              fetch: FetchPolicy.noCache,
-              cacheReread: CacheRereadPolicy.ignoreAll)));
+  GraphQLCreateUserDataSourceImpl(this._graphQLClient);
+
   @override
   Future<bool> checkEmailAvailableToRegister(String email) async {
     String checkEmailQuery = """
@@ -33,7 +26,7 @@ class GraphQLCreateUserDataSourceImpl implements GraphQLCreateUserDataSource {
       }
     """;
     try {
-      QueryResult queryResult = await client.query(QueryOptions(
+      QueryResult queryResult = await _graphQLClient.query(QueryOptions(
           document: gql(checkEmailQuery),
           variables: {"email": email},
           fetchPolicy: FetchPolicy.noCache));
@@ -66,7 +59,7 @@ class GraphQLCreateUserDataSourceImpl implements GraphQLCreateUserDataSource {
     """;
 
     try {
-      QueryResult queryResult = await client.mutate(
+      QueryResult queryResult = await _graphQLClient.mutate(
           MutationOptions(document: gql(createUserMutation), variables: {
         "userInput": {
           "firstName": registerParams.firstName,
@@ -110,7 +103,7 @@ class GraphQLCreateUserDataSourceImpl implements GraphQLCreateUserDataSource {
         }
     """;
     try {
-      QueryResult queryResult = await client.query(QueryOptions(
+      QueryResult queryResult = await _graphQLClient.query(QueryOptions(
           document: gql(getUserDetailsByEmailQuery),
           variables: {"email": email}));
       log(queryResult.data.toString());

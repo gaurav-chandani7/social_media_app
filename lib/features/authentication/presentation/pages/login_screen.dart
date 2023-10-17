@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:social_media_app/features/authentication/presentation/cubit/login/auth_cubit.dart' as auth_cubit;
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';
 import 'package:social_media_app/utils/ext/ext.dart';
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is Success) {
               // context.dismiss();
             }
-            if (state is Failure) {
+            if (state is auth_cubit.Failure) {
               context.dismiss();
               state.message.toToastError(context);
             }

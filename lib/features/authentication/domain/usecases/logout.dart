@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:social_media_app/core/error/failure.dart';
-import 'package:social_media_app/core/usecase/usecase.dart';
+import 'package:social_media_app/core/usecase/usecase_abstract.dart';
 import 'package:social_media_app/features/authentication/domain/repository/repository.dart';
 
 class LogoutUseCase implements UseCase<void, void> {
