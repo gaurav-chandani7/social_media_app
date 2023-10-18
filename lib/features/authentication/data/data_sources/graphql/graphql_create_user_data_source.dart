@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:social_media_app/core/error/failure.dart';
+import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/authentication/domain/usecases/usecases.dart';
 
 abstract class GraphQLCreateUserDataSource {
@@ -66,7 +66,7 @@ class GraphQLCreateUserDataSourceImpl implements GraphQLCreateUserDataSource {
           "lastName": registerParams.lastName,
           "username": registerParams.username,
           "email": registerParams.email,
-          "displayPicture": "",
+          "displayPicture": defaultDisplayPicture,
           "bio": registerParams.bio
         }
       }));
