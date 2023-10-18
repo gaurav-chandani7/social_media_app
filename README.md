@@ -1,16 +1,28 @@
-# social_media_app
+# Social Media App
 
-A new Flutter project.
+This app lets user upload photos, check news feed, follow different users, etc.
 
-## Getting Started
+## Features
+- Authentication: Login/Sign up
+- News Feed: See posts by people you follow.
+- Publish post: Upload multiple photos in a single post.
+- Follow/Unfollow
+- Recommendation of Users
+- Other: Pull to refresh in News feed, Follower/Following list page.
 
-This project is a starting point for a Flutter application.
+## Libraries and Backend info
 
-A few resources to get you started if this is your first Flutter project:
+#### State Management 
+- bloc
+ 
+#### Service Locator
+- get_it
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### Cloud Storage & Authentication
+- Firebase
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Database & API service
+- MongoDB & GraphQL
+
+#### Deployment
+- Railway app
