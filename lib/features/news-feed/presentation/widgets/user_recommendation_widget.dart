@@ -59,6 +59,7 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget>
                                         alignment: Alignment.center,
                                         padding: const EdgeInsets.all(0.5),
                                         decoration: BoxDecoration(
+                                            color: Colors.black87,
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                             border: const Border.fromBorderSide(
@@ -69,10 +70,14 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget>
                                                 data[index]
                                                     .displayPicture!
                                                     .isNotEmpty)
-                                            ? Image.network(
-                                                data[index].displayPicture!,
-                                                fit: BoxFit.contain,
-                                              )
+                                            ? LayoutBuilder(builder:
+                                                (context, constraints) {
+                                                return Image.network(
+                                                  data[index].displayPicture!,
+                                                  fit: BoxFit.contain,
+                                                  width: constraints.maxHeight,
+                                                );
+                                              })
                                             : const Icon(
                                                 Icons.dnd_forwardslash),
                                       )),

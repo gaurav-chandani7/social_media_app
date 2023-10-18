@@ -11,6 +11,7 @@ import 'package:social_media_app/features/news-feed/data/models/user_action_mode
 import 'package:social_media_app/features/news-feed/data/models/user_edit_model.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/create_post/create_post_item.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/news_feed_item.dart';
+import 'package:social_media_app/features/news-feed/domain/entities/user.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/user_action/edit_user_params.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/user_action/user_action_params.dart';
 import 'package:social_media_app/features/news-feed/domain/repository/repository.dart';
@@ -90,5 +91,15 @@ class PostRepositoryImpl implements PostRepository {
     }
     return _graphQLDataSource.editUser(
         userId: userId, editUserModel: editModel);
+  }
+
+  @override
+  Future<Either<Failure, List<UserEntity>>> getFollowerList(String userId) {
+    return _graphQLDataSource.getFollowerList(userId);
+  }
+
+  @override
+  Future<Either<Failure, List<UserEntity>>> getFollowingList(String userId) {
+    return _graphQLDataSource.getFollowingList(userId);
   }
 }

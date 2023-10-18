@@ -21,6 +21,8 @@ abstract class GraphQLDataSource {
   Future<Either<Failure, UserModel>> getUserDetails(String userId);
   Future<Either<Failure, bool>> editUser(
       {required String userId, required EditUserModel editUserModel});
+  Future<Either<Failure, List<UserModel>>> getFollowerList(String userId);
+  Future<Either<Failure, List<UserModel>>> getFollowingList(String userId);
 }
 
 class GraphQLDataSourceImpl implements GraphQLDataSource {
@@ -221,6 +223,80 @@ class GraphQLDataSourceImpl implements GraphQLDataSource {
           document: gql(query),
           variables: {"userId": userId, "userInput": editMap}));
       return Right(queryResult.data?["editUser"]);
+    } catch (e) {
+      log(e.toString());
+      return const Left(OtherFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserModel>>> getFollowerList(
+      String userId) async {
+    String query = """
+    query GetFollowerList(\$userId: ID!) {
+      getFollowerList(userId: \$userId) {
+        id
+        firstName
+        lastName
+        username
+        email
+        bio
+        displayPicture
+        createdAt
+        followingList
+        followerList
+        followingCount
+        followerCount
+      }
+    }
+    """;
+
+    try {
+      QueryResult queryResult = await _graphQLClient.query(QueryOptions(
+          document: gql(query),
+          variables: {"userId": userId},
+          fetchPolicy: FetchPolicy.noCache));
+      List<UserModel> userList = (queryResult.data?["getFollowerList"] as List)
+          .map((e) => UserModel.fromJson(e))
+          .toList();
+      return Right(userList);
+    } catch (e) {
+      log(e.toString());
+      return const Left(OtherFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserModel>>> getFollowingList(
+      String userId) async {
+    String query = """
+    query GetFollowingList(\$userId: ID!) {
+      getFollowingList(userId: \$userId) {
+        id
+        firstName
+        lastName
+        username
+        email
+        bio
+        displayPicture
+        createdAt
+        followingList
+        followerList
+        followingCount
+        followerCount
+      }
+    }
+    """;
+
+    try {
+      QueryResult queryResult = await _graphQLClient.query(QueryOptions(
+          document: gql(query),
+          variables: {"userId": userId},
+          fetchPolicy: FetchPolicy.noCache));
+      List<UserModel> userList = (queryResult.data?["getFollowingList"] as List)
+          .map((e) => UserModel.fromJson(e))
+          .toList();
+      return Right(userList);
     } catch (e) {
       log(e.toString());
       return const Left(OtherFailure());

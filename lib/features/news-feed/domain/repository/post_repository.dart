@@ -18,4 +18,6 @@ abstract class PostRepository {
       {required String userId,
       String? displayPicturePath,
       required EditUserEntity editUserEntity});
+  Future<Either<Failure, List<UserEntity>>> getFollowerList(String userId);
+  Future<Either<Failure, List<UserEntity>>> getFollowingList(String userId);
 }

@@ -29,7 +29,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return BlocProvider(
       create: (context) => bloc,
       child: Parent(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Add new Post"),
+        ),
         child: SafeArea(
             child: BlocListener(
                 bloc: bloc,

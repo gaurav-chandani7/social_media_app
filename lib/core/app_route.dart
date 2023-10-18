@@ -4,11 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:social_media_app/core/constants/other_constants.dart' as OtherConstants;
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/dependencies_injection.dart';
 import 'package:social_media_app/features/features.dart';
 import 'package:social_media_app/features/news-feed/presentation/bloc/user_profile/user_profile_bloc.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/create_post_screen.dart';
+import 'package:social_media_app/features/news-feed/presentation/pages/follower_list/follower_list_screen.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/news_feed_screen.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/edit_profile_screen.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/my_profile_screen.dart';
@@ -22,6 +24,8 @@ enum Routes {
   newsFeed("/newsFeed"),
   myProfile("/newsFeed/myProfile"),
   editMyProfile("/newsFeed/myProfile/edit"),
+  followerList("/newsFeed/followerList"),
+  followingList("/newsFeed/followingList"),
   createPost("/newsFeed/createPost"),
 
   login("/auth/login"),
@@ -68,6 +72,16 @@ class AppRoute {
           value: (state.extra as UserProfileBloc),
           child: const EditProfileScreen(),
         ),
+      ),
+      GoRoute(
+        path: Routes.followerList.path,
+        name: Routes.followerList.name,
+        builder: (context, state) => const FollowerListScreen(tabIndex: OtherConstants.followerListTabIndex,),
+      ),
+      GoRoute(
+        path: Routes.followingList.path,
+        name: Routes.followingList.name,
+        builder: (context, state) => const FollowerListScreen(tabIndex: OtherConstants.followingListTabIndex,),
       ),
       GoRoute(
         path: Routes.createPost.path,

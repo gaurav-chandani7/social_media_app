@@ -4,9 +4,13 @@ import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:social_media_app/features/features.dart';
 import 'package:social_media_app/features/news-feed/data/data_sources/firebase_storage_data_source.dart';
+import 'package:social_media_app/features/news-feed/domain/usecases/follower_list/get_follower_list.dart';
+import 'package:social_media_app/features/news-feed/domain/usecases/follower_list/get_following_list.dart';
 import 'package:social_media_app/features/news-feed/domain/usecases/user_profile/edit_user.dart';
 import 'package:social_media_app/features/news-feed/domain/usecases/user_profile/get_user_details.dart';
 import 'package:social_media_app/features/news-feed/presentation/bloc/create_post/create_post_bloc.dart';
+import 'package:social_media_app/features/news-feed/presentation/bloc/follower_list/follower_list_bloc.dart';
+import 'package:social_media_app/features/news-feed/presentation/bloc/following_list/following_list_bloc.dart';
 import 'package:social_media_app/features/news-feed/presentation/bloc/user_profile/user_profile_bloc.dart';
 import 'package:social_media_app/features/news-feed/presentation/bloc/user_recommendation/user_recommendation_bloc.dart';
 import 'core/core.dart';
@@ -57,6 +61,8 @@ void _useCase() {
   sl.registerFactory(() => UnfollowUserUseCase(sl()));
   sl.registerFactory(() => GetUserDetailsUseCase(sl()));
   sl.registerFactory(() => EditUserUseCase(sl()));
+  sl.registerFactory(() => GetFollowerListUseCase(sl()));
+  sl.registerFactory(() => GetFollowingListUseCase(sl()));
 }
 
 void _cubit() {
@@ -67,4 +73,6 @@ void _cubit() {
   sl.registerFactory(() => CreatePostBloc(sl()));
   sl.registerFactory(() => UserRecommendationBloc(sl(), sl(), sl()));
   sl.registerFactory(() => UserProfileBloc(sl(), sl()));
+  sl.registerFactory(() => FollowerListBloc(sl()));
+  sl.registerFactory(() => FollowingListBloc(sl()));
 }

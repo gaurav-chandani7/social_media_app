@@ -17,9 +17,11 @@ class MyProfileScreen extends StatelessWidget {
       create: (context) => bloc,
       child: Parent(
           appBar: AppBar(
+            title: const Text("My Profile"),
             actions: [
               IconButton(
-                  onPressed: () => context.pushNamed(Routes.editMyProfile.name, extra: bloc),
+                  onPressed: () =>
+                      context.pushNamed(Routes.editMyProfile.name, extra: bloc),
                   icon: const Icon(Icons.edit))
             ],
           ),
@@ -103,17 +105,23 @@ class MyProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(
-                            children: [
-                              Text("${userInfo.followerCount ?? 0}"),
-                              const Text("Followers")
-                            ],
+                          GestureDetector(
+                            onTap: () => context.pushNamed(Routes.followerList.name),
+                            child: Column(
+                              children: [
+                                Text("${userInfo.followerCount ?? 0}"),
+                                const Text("Followers")
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              Text("${userInfo.followingCount ?? 0}"),
-                              const Text("Following")
-                            ],
+                          GestureDetector(
+                            onTap: () => context.pushNamed(Routes.followingList.name),
+                            child: Column(
+                              children: [
+                                Text("${userInfo.followingCount ?? 0}"),
+                                const Text("Following")
+                              ],
+                            ),
                           )
                         ],
                       )
