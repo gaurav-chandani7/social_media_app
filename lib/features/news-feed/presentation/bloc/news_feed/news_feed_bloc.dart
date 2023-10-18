@@ -21,6 +21,13 @@ class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
         emit(NewsFeedSuccess(data: r));
       });
     });
+    on<RefreshNewsFeed>((event, emit) async {
+      final data = await _getNewsFeedUseCase(event.userId);
+      data.fold((l) => null, (r) async {
+        event.refreshCompleted();
+        emit(NewsFeedSuccess(data: r));
+      });
+    });
   }
   final GetNewsFeedUseCase _getNewsFeedUseCase;
 }

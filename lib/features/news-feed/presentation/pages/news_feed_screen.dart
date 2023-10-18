@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,10 +19,13 @@ class NewsFeedScreen extends StatefulWidget {
 
 class _NewsFeedScreenState extends State<NewsFeedScreen> {
   var bloc = sl<NewsFeedBloc>();
+  late String userId;
+  var userRecommendationKey = GlobalKey();
   @override
   void initState() {
     super.initState();
-    bloc.add(FetchNewsFeed(context.read<AuthCubit>().state.data!.userId));
+    userId = context.read<AuthCubit>().state.data!.userId;
+    bloc.add(FetchNewsFeed(userId));
   }
 
   @override
@@ -54,13 +59,27 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
           return const Center(child: CircularProgressIndicator.adaptive());
         }
         if (state is NewsFeedSuccess) {
-          return ListView.separated(
-            itemCount: state.data!.length + 1,
-            itemBuilder: (context, index) => index == 0
-                ? const UsersRecommendationWidget()
-                : NewsFeedItemWidget(
-                    newsFeedItemEntity: state.data![index - 1]),
-            separatorBuilder: (context, index) => const Divider(),
+          return RefreshIndicator(
+            onRefresh: () {
+              var completer = Completer();
+              bloc.add(RefreshNewsFeed(
+                  userId: userId,
+                  refreshCompleted: () {
+                    userRecommendationKey = GlobalKey();
+                    completer.complete();
+                  }));
+              return completer.future;
+            },
+            child: ListView.separated(
+              itemCount: state.data!.length + 1,
+              itemBuilder: (context, index) => index == 0
+                  ? UsersRecommendationWidget(
+                      key: userRecommendationKey,
+                    )
+                  : NewsFeedItemWidget(
+                      newsFeedItemEntity: state.data![index - 1]),
+              separatorBuilder: (context, index) => const Divider(),
+            ),
           );
         }
         if (state is NewsFeedFailure) {

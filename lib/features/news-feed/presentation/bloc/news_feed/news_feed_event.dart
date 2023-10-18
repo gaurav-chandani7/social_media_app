@@ -8,3 +8,10 @@ class FetchNewsFeed extends NewsFeedEvent {
 
   FetchNewsFeed(this.userId);
 }
+
+class RefreshNewsFeed extends NewsFeedEvent {
+  final String userId;
+  final Function refreshCompleted;
+
+  RefreshNewsFeed({required this.userId, required this.refreshCompleted});
+}
