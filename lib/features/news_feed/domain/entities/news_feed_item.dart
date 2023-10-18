@@ -6,11 +6,11 @@ class NewsFeedItemEntity {
   final String? postDescription;
   final String? postedBy;
   final String? createdAt;
-  List<String>? taggedMembers;
-  List<String> urls;
-  UserEntity authorDetails;
+  final List<String>? taggedMembers;
+  final List<String> urls;
+  final UserEntity authorDetails;
 
-  NewsFeedItemEntity({
+  const NewsFeedItemEntity({
     required this.id,
     required this.postTitle,
     this.postDescription,

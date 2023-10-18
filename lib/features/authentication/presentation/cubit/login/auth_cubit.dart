@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:social_media_app/core/error/failure.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';

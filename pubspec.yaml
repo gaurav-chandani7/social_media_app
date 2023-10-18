@@ -45,6 +45,7 @@ dependencies:
   graphql_flutter: ^5.1.2
   firebase_storage: ^11.2.8
   file_picker: ^6.0.0
+  meta: ^1.9.1
 
 dev_dependencies:
   flutter_test:

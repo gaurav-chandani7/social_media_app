@@ -3,19 +3,13 @@ import 'dart:convert';
 import 'package:social_media_app/features/news_feed/domain/entities/user_action/edit_user_params.dart';
 
 class EditUserModel extends EditUserEntity {
-  String? firstName;
-  String? lastName;
-  String? username;
-  String? email;
-  String? bio;
-  String? displayPicture;
   EditUserModel({
-    this.firstName,
-    this.lastName,
-    this.username,
-    this.email,
-    this.bio,
-    this.displayPicture,
+    String? firstName,
+    String? lastName,
+    String? username,
+    String? email,
+    String? bio,
+    String? displayPicture,
   }) : super(
             firstName: firstName,
             lastName: lastName,

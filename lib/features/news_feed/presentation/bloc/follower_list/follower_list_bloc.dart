@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:social_media_app/features/news_feed/domain/entities/entities.dart';
 import 'package:social_media_app/features/news_feed/domain/usecases/follower_following_list/get_follower_list.dart';

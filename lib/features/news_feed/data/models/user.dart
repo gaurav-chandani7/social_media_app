@@ -1,28 +1,18 @@
 import 'package:social_media_app/features/news_feed/domain/entities/entities.dart';
 
 class UserModel extends UserEntity {
-  String id;
-  String firstName;
-  String lastName;
-  String? username;
-  String? email;
-  String? bio;
-  String? displayPicture;
-  String? createdAt;
-  int? followerCount;
-  int? followingCount;
-  UserModel(
-      {required this.id,
-      required this.firstName,
-      required this.lastName,
-      this.username,
-      this.email,
-      this.bio,
-      this.displayPicture,
-      this.createdAt,
-      this.followerCount,
-      this.followingCount})
-      : super(
+  const UserModel({
+    required String id,
+    required String firstName,
+    required String lastName,
+    String? username,
+    String? email,
+    String? bio,
+    String? displayPicture,
+    String? createdAt,
+    int? followerCount,
+    int? followingCount,
+  }) : super(
             id: id,
             firstName: firstName,
             lastName: lastName,

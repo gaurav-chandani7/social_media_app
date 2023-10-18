@@ -2,23 +2,15 @@ import 'package:social_media_app/features/news_feed/data/models/models.dart';
 import 'package:social_media_app/features/news_feed/domain/entities/entities.dart';
 
 class NewsFeedItemModel extends NewsFeedItemEntity {
-  String id;
-  String postTitle;
-  String? postDescription;
-  String? postedBy;
-  String? createdAt;
-  List<String>? taggedMembers;
-  List<String> urls;
-  UserEntity authorDetails;
-  NewsFeedItemModel({
-    required this.id,
-    required this.postTitle,
-    this.postDescription,
-    this.postedBy,
-    this.createdAt,
-    this.taggedMembers,
-    required this.urls,
-    required this.authorDetails,
+  const NewsFeedItemModel({
+    required String id,
+    required String postTitle,
+    String? postDescription,
+    String? postedBy,
+    String? createdAt,
+    List<String>? taggedMembers,
+    required List<String> urls,
+    required UserEntity authorDetails,
   }) : super(
             id: id,
             postTitle: postTitle,
