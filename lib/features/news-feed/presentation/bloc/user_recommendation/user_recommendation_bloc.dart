@@ -52,14 +52,11 @@ class UserRecommendationBloc
       res.fold(
           (l) => emit(UserRecommendationLoaded(
               data: state.data, followedUsers: state.followedUsers)), (r) {
-        if (r) {
-          //Unfollow is true
-          if (state.followedUsers?.contains(event.targetUserId) ?? false) {
-            state.followedUsers?.remove(event.targetUserId);
-          }
-          emit(UserRecommendationLoaded(
-              data: state.data, followedUsers: state.followedUsers));
+        if (state.followedUsers?.contains(event.targetUserId) ?? false) {
+          state.followedUsers?.remove(event.targetUserId);
         }
+        emit(UserRecommendationLoaded(
+            data: state.data, followedUsers: state.followedUsers));
       });
     });
   }

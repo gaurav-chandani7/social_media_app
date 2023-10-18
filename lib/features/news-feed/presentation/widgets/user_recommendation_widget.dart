@@ -32,6 +32,9 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget>
         builder: (context, state) {
           if (state is UserRecommendationLoaded) {
             var data = state.data!;
+            if (data.isEmpty) {
+              return const SizedBox();
+            }
             return SizedBox(
               height: 250,
               child: Column(
