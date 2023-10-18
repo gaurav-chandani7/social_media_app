@@ -8,3 +8,18 @@ class GetFollowingList extends FollowingListEvent {
 
   GetFollowingList(this.userId);
 }
+
+class ShowUnfollowDialog extends FollowingListEvent {
+  final String targetUserId;
+
+  ShowUnfollowDialog(this.targetUserId);
+}
+
+class UnfollowTap extends FollowingListEvent {
+  final String selfId;
+  final String targetUserId;
+  UnfollowTap({
+    required this.selfId,
+    required this.targetUserId,
+  });
+}

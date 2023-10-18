@@ -74,5 +74,5 @@ void _cubit() {
   sl.registerFactory(() => UserRecommendationBloc(sl(), sl(), sl()));
   sl.registerFactory(() => UserProfileBloc(sl(), sl()));
   sl.registerFactory(() => FollowerListBloc(sl()));
-  sl.registerFactory(() => FollowingListBloc(sl()));
+  sl.registerFactory(() => FollowingListBloc(sl(), sl()));
 }

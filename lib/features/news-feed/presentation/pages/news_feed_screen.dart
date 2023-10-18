@@ -29,10 +29,11 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
         create: (context) => bloc,
         child: Parent(
           appBar: AppBar(
+            title: const Text("News feed"),
             actions: [
               IconButton(
                   onPressed: () => context.pushNamed(Routes.myProfile.name),
-                  icon: Icon(Icons.person_pin_outlined))
+                  icon: const Icon(Icons.person_pin_outlined))
             ],
           ),
           child: _buildBody(),

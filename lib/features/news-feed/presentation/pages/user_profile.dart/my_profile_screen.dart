@@ -106,7 +106,8 @@ class MyProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
-                            onTap: () => context.pushNamed(Routes.followerList.name),
+                            onTap: () =>
+                                context.pushNamed(Routes.followerList.name),
                             child: Column(
                               children: [
                                 Text("${userInfo.followerCount ?? 0}"),
@@ -115,7 +116,8 @@ class MyProfileScreen extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => context.pushNamed(Routes.followingList.name),
+                            onTap: () =>
+                                context.pushNamed(Routes.followingList.name),
                             child: Column(
                               children: [
                                 Text("${userInfo.followingCount ?? 0}"),
@@ -137,7 +139,7 @@ class MyProfileScreen extends StatelessWidget {
                 ],
               );
             }
-            return const Placeholder();
+            return const SizedBox();
           },
         ),
       ),
