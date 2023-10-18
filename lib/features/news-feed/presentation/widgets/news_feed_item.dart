@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/entities.dart';
+import 'package:social_media_app/utils/helper/relative_time.dart';
 
 class NewsFeedItemWidget extends StatefulWidget {
   const NewsFeedItemWidget({super.key, required this.newsFeedItemEntity});
@@ -36,7 +37,8 @@ class _NewsFeedItemWidgetState extends State<NewsFeedItemWidget> {
                         shape: BoxShape.circle),
                     child: ClipOval(
                       child: Image.network(
-                        newsFeedItem.authorDetails.displayPicture ?? defaultDisplayPicture,
+                        newsFeedItem.authorDetails.displayPicture ??
+                            defaultDisplayPicture,
                         width: min(constraints.maxWidth * 0.1, 50),
                         height: min(constraints.maxWidth * 0.1, 50),
                         fit: BoxFit.contain,
@@ -141,10 +143,23 @@ class _NewsFeedItemWidgetState extends State<NewsFeedItemWidget> {
                   Text(
                     widget.newsFeedItemEntity.postTitle,
                     style: const TextStyle(fontWeight: FontWeight.w500),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   widget.newsFeedItemEntity.postDescription != null
-                      ? Text(widget.newsFeedItemEntity.postDescription!)
-                      : const SizedBox()
+                      ? Text(
+                          widget.newsFeedItemEntity.postDescription!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      : const SizedBox(),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    getRelativeTime(widget.newsFeedItemEntity.createdAt ?? ""),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
+                  )
                 ],
               ),
             )
