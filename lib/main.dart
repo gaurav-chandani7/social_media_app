@@ -25,6 +25,7 @@ class SocialMediaApp extends StatelessWidget {
         return MaterialApp.router(
           theme: ThemeData(primarySwatch: Colors.brown),
           routerConfig: AppRoute.router,
+          debugShowCheckedModeBanner: false,
         );
       }),
     );

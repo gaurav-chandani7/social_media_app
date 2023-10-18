@@ -132,7 +132,11 @@ class MyProfileScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
-                      child: const Text("Logout"),
+                      child: const Text(
+                        "Logout",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                       onPressed: () => context.read<AuthCubit>().logout(),
                     ),
                   )
