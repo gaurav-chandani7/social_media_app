@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:social_media_app/features/authentication/presentation/cubit/login/auth_cubit.dart' as auth_cubit;
+import 'package:social_media_app/features/authentication/presentation/cubit/login/auth_cubit.dart'
+    as auth_cubit;
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/authentication/authentication.dart';
-import 'package:social_media_app/utils/ext/ext.dart';
+import 'package:social_media_app/utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -65,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           keyboardType: TextInputType.emailAddress,
                           autofillHints: const [AutofillHints.email],
-                          // validator: emailFieldValidator,
+                          validator: emailFieldValidator,
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (value) =>
                               value != null && value.isNotEmpty
                                   ? null
-                                  : 'Required',
+                                  : 'Password Required',
                         ),
                         const SizedBox(
                           height: 20,
