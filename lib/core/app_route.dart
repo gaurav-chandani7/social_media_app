@@ -4,16 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:social_media_app/core/constants/other_constants.dart' as OtherConstants;
+import 'package:social_media_app/core/constants/other_constants.dart' as other_constants;
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/dependencies_injection.dart';
 import 'package:social_media_app/features/features.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/user_profile/user_profile_bloc.dart';
-import 'package:social_media_app/features/news-feed/presentation/pages/create_post_screen.dart';
-import 'package:social_media_app/features/news-feed/presentation/pages/follower_list/follower_list_screen.dart';
-import 'package:social_media_app/features/news-feed/presentation/pages/news_feed_screen.dart';
-import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/edit_profile_screen.dart';
-import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/my_profile_screen.dart';
 import 'package:social_media_app/utils/utils.dart';
 
 enum Routes {
@@ -76,12 +70,12 @@ class AppRoute {
       GoRoute(
         path: Routes.followerList.path,
         name: Routes.followerList.name,
-        builder: (context, state) => const FollowerListScreen(tabIndex: OtherConstants.followerListTabIndex,),
+        builder: (context, state) => const FollowerListScreen(tabIndex: other_constants.followerListTabIndex,),
       ),
       GoRoute(
         path: Routes.followingList.path,
         name: Routes.followingList.name,
-        builder: (context, state) => const FollowerListScreen(tabIndex: OtherConstants.followingListTabIndex,),
+        builder: (context, state) => const FollowerListScreen(tabIndex: other_constants.followingListTabIndex,),
       ),
       GoRoute(
         path: Routes.createPost.path,

@@ -1,2 +1,2 @@
 export 'authentication/authentication.dart';
-export 'news-feed/news_feed.dart';
+export 'news_feed/news_feed.dart';

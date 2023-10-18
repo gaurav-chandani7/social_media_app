@@ -2,17 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:social_media_app/core/constants/other_constants.dart';
 import 'package:social_media_app/features/features.dart';
-import 'package:social_media_app/features/news-feed/data/data_sources/firebase_storage_data_source.dart';
-import 'package:social_media_app/features/news-feed/domain/usecases/follower_list/get_follower_list.dart';
-import 'package:social_media_app/features/news-feed/domain/usecases/follower_list/get_following_list.dart';
-import 'package:social_media_app/features/news-feed/domain/usecases/user_profile/edit_user.dart';
-import 'package:social_media_app/features/news-feed/domain/usecases/user_profile/get_user_details.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/create_post/create_post_bloc.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/follower_list/follower_list_bloc.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/following_list/following_list_bloc.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/user_profile/user_profile_bloc.dart';
-import 'package:social_media_app/features/news-feed/presentation/bloc/user_recommendation/user_recommendation_bloc.dart';
 import 'core/core.dart';
 
 GetIt sl = GetIt.instance;
