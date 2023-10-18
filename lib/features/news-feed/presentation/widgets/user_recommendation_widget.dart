@@ -57,6 +57,7 @@ class _UsersRecommendationWidgetState extends State<UsersRecommendationWidget>
                                       flex: 65,
                                       child: Container(
                                         alignment: Alignment.center,
+                                        padding: const EdgeInsets.all(0.5),
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(5),

@@ -7,8 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/dependencies_injection.dart';
 import 'package:social_media_app/features/features.dart';
+import 'package:social_media_app/features/news-feed/presentation/bloc/user_profile/user_profile_bloc.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/create_post_screen.dart';
 import 'package:social_media_app/features/news-feed/presentation/pages/news_feed_screen.dart';
+import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/edit_profile_screen.dart';
+import 'package:social_media_app/features/news-feed/presentation/pages/user_profile.dart/my_profile_screen.dart';
 import 'package:social_media_app/utils/utils.dart';
 
 enum Routes {
@@ -18,6 +21,7 @@ enum Routes {
 
   newsFeed("/newsFeed"),
   myProfile("/newsFeed/myProfile"),
+  editMyProfile("/newsFeed/myProfile/edit"),
   createPost("/newsFeed/createPost"),
 
   login("/auth/login"),
@@ -55,19 +59,15 @@ class AppRoute {
       GoRoute(
         path: Routes.myProfile.path,
         name: Routes.myProfile.name,
-        builder: (context, state) => Builder(builder: (context) {
-          var appState = context.read<AuthCubit>().state;
-          log(appState.data.toString());
-          return Container(
-            color: Colors.amber.shade300,
-            child: Center(
-              child: TextButton(
-                child: const Text("Logout"),
-                onPressed: () => context.read<AuthCubit>().logout(),
-              ),
-            ),
-          );
-        }),
+        builder: (context, state) => const MyProfileScreen(),
+      ),
+      GoRoute(
+        path: Routes.editMyProfile.path,
+        name: Routes.editMyProfile.name,
+        builder: (context, state) => BlocProvider.value(
+          value: (state.extra as UserProfileBloc),
+          child: const EditProfileScreen(),
+        ),
       ),
       GoRoute(
         path: Routes.createPost.path,

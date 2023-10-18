@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/core/core.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/entities.dart';
 
 class NewsFeedItemWidget extends StatefulWidget {
@@ -35,7 +36,7 @@ class _NewsFeedItemWidgetState extends State<NewsFeedItemWidget> {
                         shape: BoxShape.circle),
                     child: ClipOval(
                       child: Image.network(
-                        newsFeedItem.urls.first,
+                        newsFeedItem.authorDetails.displayPicture ?? defaultDisplayPicture,
                         width: min(constraints.maxWidth * 0.1, 50),
                         height: min(constraints.maxWidth * 0.1, 50),
                         fit: BoxFit.contain,

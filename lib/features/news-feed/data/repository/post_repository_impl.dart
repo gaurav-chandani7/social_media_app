@@ -8,8 +8,10 @@ import 'package:social_media_app/features/news-feed/data/data_sources/firebase_s
 import 'package:social_media_app/features/news-feed/data/models/create_post.dart';
 import 'package:social_media_app/features/news-feed/data/models/models.dart';
 import 'package:social_media_app/features/news-feed/data/models/user_action_model.dart';
+import 'package:social_media_app/features/news-feed/data/models/user_edit_model.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/create_post/create_post_item.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/news_feed_item.dart';
+import 'package:social_media_app/features/news-feed/domain/entities/user_action/edit_user_params.dart';
 import 'package:social_media_app/features/news-feed/domain/entities/user_action/user_action_params.dart';
 import 'package:social_media_app/features/news-feed/domain/repository/repository.dart';
 
@@ -68,5 +70,25 @@ class PostRepositoryImpl implements PostRepository {
         userActionModel: UserActionModel(
             selfId: userActionParams.selfId,
             targetUserId: userActionParams.targetUserId));
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> getUserDetails(String userId) {
+    return _graphQLDataSource.getUserDetails(userId);
+  }
+
+  @override
+  Future<Either<Failure, bool>> editUser(
+      {required String userId,
+      String? displayPicturePath,
+      required EditUserEntity editUserEntity}) async {
+    var editModel = EditUserModel.fromEntity(editUserEntity);
+    if (displayPicturePath != null) {
+      var url = await _firebaseStorageDataSource.uploadFile(
+          userId: userId, filePath: displayPicturePath);
+      editModel.displayPicture = url;
+    }
+    return _graphQLDataSource.editUser(
+        userId: userId, editUserModel: editModel);
   }
 }
